@@ -1,0 +1,33 @@
+
+
+button {
+    border-radius: 4px;
+    background: teal;
+    color: white;
+    margin: 4px;
+}
+
+#animal-form {
+    float: right;
+    margin-right: 15px;
+}
+
+#animals {
+    float: left;
+    margin-left: 15px;
+}
+
+#addAnimal {
+    border-radius: 4px;
+    background: teal;
+    color: white;
+    margin-top: 10px;
+    
+}
+
+label { 
+    display: block;
+    text-align: left;
+    font-weight: bold;
+}
+
