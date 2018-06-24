@@ -3,7 +3,7 @@ $(document).ready(function () {
     //Global Variables
     var addTopic = "";
     var dupTopic = false;
-
+    var querySeachURL = "",
 
 
 
@@ -36,58 +36,6 @@ $(document).ready(function () {
     // Create Starting Animal Buttons
     createButtons();
 
-    // Click Handlers
-    $("#addAnimal").on("click", function (event) {
-
-        // Get the value from the input form
-        addTopic = $("#animal-input").val().trim();
-
-        //var addTopic = $("animal-input").val();
-        console.log("addTopic: " + addTopic);
-
-
-        // Checking that the topic isn't already in the array
-        dupTopic = false;
-        for (var i = 0; i < topics.length; i++) {
-            if (addTopic === topics[i]) {
-
-                console.log("topics: " + topics[i]);
-                dupTopic = true;
-                alert("Button already created for this topic.\nInput a new topic.")
-                //Prevents the page from reloading on form submit
-                event.preventDefault();
-
-                // Clear the input form
-                document.getElementById("animal-form").reset();
-
-                // Breaking out of the loop
-                break;
-            }
-        }
-
-        // if no duplicate topics, go ahead and create a box for the topic
-        if (dupTopic === false) {
-            // Adding topic to array
-            topics.push(addTopic);
-
-            //Prevents the page from reloading on form submit
-            event.preventDefault();
-
-            // Clear the input form
-            document.getElementById("animal-form").reset();
-
-            // Create Starting Animal Buttons
-            createButtons();
-
-        }
-
-
-
-
-
-
-
-    });
 
 
 
@@ -98,8 +46,10 @@ $(document).ready(function () {
 
 
 
-    // Create Starting Animal Buttons
-    createButtons();
+
+
+
+
 
 
     //
@@ -149,5 +99,80 @@ $(document).ready(function () {
             $("div[id='animalButtons']").append(animalBtn)
         }
     }
+
+    function buildQueryURL() {
+        // The url for the GIPHY API
+        var queryURL = "http://api.giphy.com/v1/gifs/search?";
+
+        // The topic entered into the input box by the user plus q=
+        var queryTopic = "q=" + addTopic;
+
+        // Set up appropriate ratings
+        var queryRatingsApprop = "&rating=g+pg+pg-13"
+
+        //Set the API key
+        var queryKey = "&api_key=lJ43akIhk3DTBBHT3hg2kXg062zG48xm";
+
+        // Set the maximum records to return
+        var queryLimit = "&limit=10";
+
+        // Construct the query url for the GIPHY API
+
+        querySeachURL = queryURL + queryTopic + queryRatingsApprop + queryKey + queryLimit
+
+        return querySeachURL
+    }
+
+
+    // Click Handlers
+
+    // Create button for user inputted topic
+
+    $("#addAnimal").on("click", function (event) {
+
+        // Get the value from the input form
+        addTopic = $("#animal-input").val().trim();
+
+        //var addTopic = $("animal-input").val();
+        console.log("addTopic: " + addTopic);
+
+
+        // Checking that the topic isn't already in the array
+        dupTopic = false;
+        for (var i = 0; i < topics.length; i++) {
+            if (addTopic === topics[i]) {
+
+                console.log("topics: " + topics[i]);
+                dupTopic = true;
+                alert("Button already created for this topic.\nInput a new topic.")
+                //Prevents the page from reloading on form submit
+                event.preventDefault();
+
+                // Clear the input form
+                document.getElementById("animal-form").reset();
+
+                // Breaking out of the loop
+                break;
+            }
+        }
+
+        // if no duplicate topics, go ahead and create a box for the topic
+        if (dupTopic === false) {
+            // Adding topic to array
+            topics.push(addTopic);
+
+            //Prevents the page from reloading on form submit
+            event.preventDefault();
+
+            // Clear the input form
+            document.getElementById("animal-form").reset();
+
+            // Create Starting Animal Buttons
+            createButtons();
+
+        }
+
+    });
+
 
 });
