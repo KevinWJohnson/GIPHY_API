@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+    //Global Variables
+    var addTopic = "";
+
+
+
+
     // Array for Starting Buttons Animals
     var topics = [
         "dog",
@@ -29,12 +35,16 @@ $(document).ready(function () {
     // Create Starting Animal Buttons
     createButtons();
 
-    function userTopic(){
-    
+    // Click Handlers
+    $("#addAnimal").on("click", function (event) {
+
+        //Prevents the page from reloading on form submit
+        event.preventDefault();
+
         $("#animalButtons").empty();
-        
-        var addTopic = document.getElementById("animal-input").value;
-        
+
+        addTopic = $("#animal-input").val().trim();
+
         //var addTopic = $("animal-input").val();
         console.log(addTopic);
         //var addTopic = document.getElementById("animal-form").value;
@@ -47,7 +57,13 @@ $(document).ready(function () {
 
 
 
-    }
+    });
+
+
+
+
+
+
 
 
 
