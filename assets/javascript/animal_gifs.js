@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     //Global Variables
     var addTopic = "";
+    var dupTopic = false;
 
 
 
@@ -38,22 +39,51 @@ $(document).ready(function () {
     // Click Handlers
     $("#addAnimal").on("click", function (event) {
 
-        //Prevents the page from reloading on form submit
-        event.preventDefault();
-
-        $("#animalButtons").empty();
-
+        // Get the value from the input form
         addTopic = $("#animal-input").val().trim();
 
         //var addTopic = $("animal-input").val();
-        console.log(addTopic);
-        //var addTopic = document.getElementById("animal-form").value;
+        console.log("addTopic: " + addTopic);
 
-        // Adding topic to array
-        topics.push(addTopic);
 
-        // Create Starting Animal Buttons
-        createButtons();
+        // Checking that the topic isn't already in the array
+        dupTopic = false;
+        for (var i = 0; i < topics.length; i++) {
+            if (addTopic === topics[i]) {
+
+                console.log("topics: " + topics[i]);
+                dupTopic = true;
+                alert("Button already created for this topic.\nInput a new topic.")
+                //Prevents the page from reloading on form submit
+                event.preventDefault();
+
+                // Clear the input form
+                document.getElementById("animal-form").reset();
+
+                // Breaking out of the loop
+                break;
+            }
+        }
+
+        // if no duplicate topics, go ahead and create a box for the topic
+        if (dupTopic === false) {
+            // Adding topic to array
+            topics.push(addTopic);
+
+            //Prevents the page from reloading on form submit
+            event.preventDefault();
+
+            // Clear the input form
+            document.getElementById("animal-form").reset();
+
+            // Create Starting Animal Buttons
+            createButtons();
+
+        }
+
+
+
+
 
 
 
