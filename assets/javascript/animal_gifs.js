@@ -3,7 +3,7 @@ $(document).ready(function () {
     //Global Variables
     var addTopic = "";
     var dupTopic = false;
-    var querySeachURL = "",
+    var querySeachURL = "";
 
 
 
@@ -39,52 +39,6 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //
-    //API Key for GIPHY API Assignment
-    //
-    //   lJ43akIhk3DTBBHT3hg2kXg062zG48xm
-    //
-    // Example code from GiPHY.com - how they need the requests
-    //javascript, jQuery
-    // var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5");
-    // xhr.done(function (data) { console.log("success got data", data); });
-
-    // Requesting the data from giphy.com
-    var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=teacup pig&rating=g&api_key=lJ43akIhk3DTBBHT3hg2kXg062zG48xm&limit=10");
-
-    // After data comes back from the API
-    xhr.done(function (response) {
-
-        console.log("success got data", response);
-
-        // Storing array of results in the results variable
-        var results = response.data;
-
-        // Looping over every result item
-        //for (var i = 0; i < results.length; i++) {
-
-        // }
-
-
-
-
-
-
-    });
-
     // Creating Animal Buttons
 
     function createButtons() {
@@ -93,22 +47,23 @@ $(document).ready(function () {
 
         for (var i = 0; i < topics.length; i++) {
 
-            var animalBtn = $("<button type='button'>" + topics[i] + "</button>");
+            var animalBtn = $("<button type='button' data-animal=" + topics[i] + ">" + topics[i] + "</button>");
+            //var animalBtn = $("<button type='button'>" + topics[i] + "</button>");
 
             // Appending the button to the animalButtons div
             $("div[id='animalButtons']").append(animalBtn)
         }
     }
 
-    function buildQueryURL() {
+    function buildQueryURL(queryBtnTopicVal) {
         // The url for the GIPHY API
-        var queryURL = "http://api.giphy.com/v1/gifs/search?";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?";
 
         // The topic entered into the input box by the user plus q=
-        var queryTopic = "q=" + addTopic;
+        var queryTopic = "q=" + queryBtnTopicVal;
 
-        // Set up appropriate ratings
-        var queryRatingsApprop = "&rating=g+pg+pg-13"
+        // Set up appropriate ratings - includes all ratings up to pg-13
+        var queryRatingsApprop = "&rating=pg-13"
 
         //Set the API key
         var queryKey = "&api_key=lJ43akIhk3DTBBHT3hg2kXg062zG48xm";
@@ -171,6 +126,60 @@ $(document).ready(function () {
             createButtons();
 
         }
+
+    });
+
+
+    // Create files for buttons clicked
+
+    // Event listener for all the button elements
+    $("button").on("click", function () {
+
+        // In this case, the "this" refers to the button that was clicked
+        var queryBtnTopic = $(this).attr("data-animal");
+
+        // Performing the AJAX GET request
+
+        //
+        // API Key for GIPHY API Assignment
+        //
+        //   lJ43akIhk3DTBBHT3hg2kXg062zG48xm
+        //
+        // Example code from GiPHY.com - how they need the requests
+        //javascript, jQuery
+        // var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5");
+        // xhr.done(function (data) { console.log("success got data", data); });
+
+        // Requesting the data from giphy.com
+        // var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=teacup pig&rating=g&api_key=lJ43akIhk3DTBBHT3hg2kXg062zG48xm&limit=10");
+
+        // Requesting the data from giphy.com
+        console.log(buildQueryURL(queryBtnTopic));
+        var xhr = $.get(buildQueryURL(queryBtnTopic));
+
+
+        // After data comes back from the API
+        xhr.done(function (response) {
+
+            console.log("success got data", response);
+
+            // Storing array of results in the results variable
+            var results = response.data;
+
+            // Looping over every result item
+            //for (var i = 0; i < results.length; i++) {
+
+            // }
+
+
+
+
+
+
+        });
+
+
+
 
     });
 
