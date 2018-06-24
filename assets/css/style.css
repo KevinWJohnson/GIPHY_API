@@ -34,3 +34,7 @@ label {
     font-weight: bold;
 }
 
+img {
+    width: 300px;
+    height: 300px;
+}

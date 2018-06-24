@@ -158,8 +158,7 @@ $(document).ready(function () {
             }
         });
     }
-
-    // Function that creates button from user input
+    
 
     function userButton() {
 
