@@ -78,8 +78,62 @@ $(document).ready(function () {
         return querySeachURL
     }
 
-    // Function that creates images for the button that is clicked
-    function displayImages() {
+
+    // Click Handlers
+
+    // Create button for user inputted topic
+
+    $("#addAnimal").on("click", function (event) {
+
+        // Get the value from the input form
+        addTopic = $("#animal-input").val().trim();
+
+        //var addTopic = $("animal-input").val();
+        console.log("addTopic: " + addTopic);
+
+
+        // Checking that the topic isn't already in the array
+        dupTopic = false;
+        for (var i = 0; i < topics.length; i++) {
+            if (addTopic === topics[i]) {
+
+                console.log("topics: " + topics[i]);
+                dupTopic = true;
+                alert("Button already created for this topic.\nInput a new topic.")
+                //Prevents the page from reloading on form submit
+                event.preventDefault();
+
+                // Clear the input form
+                document.getElementById("animal-form").reset();
+
+                // Breaking out of the loop
+                break;
+            }
+        }
+
+        // if no duplicate topics, go ahead and create a box for the topic
+        if (dupTopic === false) {
+            // Adding topic to array
+            topics.push(addTopic);
+
+            //Prevents the page from reloading on form submit
+            event.preventDefault();
+
+            // Clear the input form
+            document.getElementById("animal-form").reset();
+
+            // Create Starting Animal Buttons
+            createButtons();
+
+        }
+
+    });
+
+
+    // Create files for buttons clicked
+
+    // Event listener for all the button elements
+    $("button").on("click", function () {
 
         // clearing any images from past queries
         $("#animals").empty();
@@ -146,7 +200,7 @@ $(document).ready(function () {
                 // Giving the image tag a class attribute of a property pulled off the 
                 // result item
                 animalImage.addClass("image");
-
+                
 
                 //Appending the paragraph and animalImage created to the "gifDiv" div
                 gifDiv.append(p);
@@ -156,94 +210,29 @@ $(document).ready(function () {
                 $("#animals").prepend(gifDiv);
 
             }
+
         });
-    }
 
-    // Function that creates button from user input
+    });
 
-    function userButton() {
-
-        // Get the value from the input form
-        addTopic = $("#animal-input").val().trim();
-
-        //var addTopic = $("animal-input").val();
-        console.log("addTopic: " + addTopic);
-
-
-        // Checking that the topic isn't already in the array
-        dupTopic = false;
-        for (var i = 0; i < topics.length; i++) {
-            if (addTopic === topics[i]) {
-
-                console.log("topics: " + topics[i]);
-                dupTopic = true;
-                alert("Button already created for this topic.\nInput a new topic.")
-                //Prevents the page from reloading on form submit
-                event.preventDefault();
-
-                // Clear the input form
-                document.getElementById("animal-form").reset();
-
-                // Breaking out of the loop
-                break;
-            }
-        }
-
-        // Check for an empty string being entered
-        if (addTopic === "") {
-            dupTopic = true;
-            alert("Empty string entered.\nInput a new topic.")
-            //Prevents the page from reloading on form submit
-            event.preventDefault();
-
-            // Clear the input form
-            document.getElementById("animal-form").reset();
-        }
-
-        // if no duplicate topics, go ahead and create a box for the topic
-        if (dupTopic === false) {
-            // Adding topic to array
-            topics.push(addTopic);
-
-            //Prevents the page from reloading on form submit
-            event.preventDefault();
-
-            // Clear the input form
-            document.getElementById("animal-form").reset();
-
-            // Create Starting Animal Buttons
-            createButtons();
-        }
-    }
-
-
-    // Click Handlers
-
-    // Creates images based on button clicked
-    $(document).on("click", "button", displayImages);
-
-
-    // Create button for user inputted topic
-
-    $(document).on("click", "#addAnimal", userButton);
 
 
     // Pausing and Starting gifs
-    $(document).on("click", ".image", function () {
+    $(document).on("click", ".image", function() {
         // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
         var state = $(this).attr("data-state");
         // If the clicked image's state is still, update its src attribute to what its data-animate value is.
         // Then, set the image's data-state to animate
         // Else set src to the data-still value
         if (state === "still") {
-            $(this).attr("src", $(this).attr("data-animate"));
-            $(this).attr("data-state", "animate");
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
         } else {
-            $(this).attr("src", $(this).attr("data-still"));
-            $(this).attr("data-state", "still");
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
         }
-    });
-
+      });
+  
 
 
 });
