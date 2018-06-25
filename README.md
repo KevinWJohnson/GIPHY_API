@@ -1,5 +1,5 @@
 # GIPHY_API
-Dynamic web page with gifs of animals
+##Dynamic Web Page with Gifs of Animals
 
 This web page takes gifs from the GIPHY API. The web page is based on
 the animal theme.
