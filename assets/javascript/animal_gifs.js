@@ -123,7 +123,7 @@ $(document).ready(function () {
                 var gifDiv = $("<div class='item'>");
 
                 // Storing the result item's rating
-                var rating = results[i].rating;
+                var rating = results[i].rating.toUpperCase();
 
                 // Creating a paragraph tag with the result item's rating
                 var p = $("<p>").text("Rating: " + rating);
