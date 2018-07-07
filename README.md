@@ -13,3 +13,5 @@ the image toggles between the animated and non-animated state.
 The user may create a button by entering a name of an animal in the input
 form and clicking the "Submit" button. The input form has error checking for
 entering the name of an existing button and not entering anything.
+
+https://kevinwjohnson.github.io/GIPHY_API/
